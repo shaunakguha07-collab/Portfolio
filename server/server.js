@@ -22,7 +22,7 @@ const ADMIN_PASSWORD_HASH = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin
 // Endpoint to submit a new message
 app.post('/api/messages', async (req, res) => {
     const { name, email, message } = req.body;
-    
+
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'All fields are required.' });
     }
@@ -42,7 +42,7 @@ app.post('/api/messages', async (req, res) => {
 // Endpoint for admin login
 app.post('/api/login', (req, res) => {
     const { password } = req.body;
-    
+
     if (!password) {
         return res.status(400).json({ error: 'Password required' });
     }
@@ -59,7 +59,7 @@ app.post('/api/login', (req, res) => {
 function verifyAdmin(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ error: 'No token provided' });
-    
+
     const token = authHeader.split(' ')[1];
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err || decoded.role !== 'admin') {
@@ -70,7 +70,7 @@ function verifyAdmin(req, res, next) {
 }
 
 // Endpoint to get all messages (Protected)
-app.get('/api/messages', verifyAdmin, async (req, res) => {
+app.get('https://your-backend.onrender.com/api/messages', verifyAdmin, async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM messages ORDER BY timestamp DESC');
         res.json(result.rows);
