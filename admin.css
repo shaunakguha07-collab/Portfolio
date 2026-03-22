@@ -151,7 +151,7 @@ body {
 .login-box input {
     width: 100%;
     padding: 1rem;
-    background: rgba(0, 255, 204, 0.05);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--panel-border);
     color: var(--primary-color);
     font-family: var(--font-heading);
