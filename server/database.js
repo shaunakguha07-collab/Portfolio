@@ -8,24 +8,24 @@ const pool = new Pool({
     }
 });
 
-pool.on('error', (err) => {
-    console.error('CRITICAL: Unexpected error on idle client:', err.message);
-    console.error(err);
-});
+// Only attempt connection if URL exists
+if (!process.env.DATABASE_URL) {
+    console.error('CRITICAL: DATABASE_URL environment variable is missing!');
+}
 
-// Test the connection immediately
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('DATABASE CONNECTION ERROR:', err.message);
-        console.error('Full connection string error details:', err);
-    } else {
-        console.log('DATABASE CONNECTION SUCCESSFUL: Server time is', res.rows[0].now);
-    }
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client:', err.message);
 });
 
 // Initialize tables
 const initDB = async () => {
+    if (!process.env.DATABASE_URL) return;
     try {
+        // Test connection
+        const res = await pool.query('SELECT NOW()');
+        console.log('DATABASE CONNECTION SUCCESSFUL: Server time is', res.rows[0].now);
+
+        // Create table
         await pool.query(`
             CREATE TABLE IF NOT EXISTS messages (
                 id SERIAL PRIMARY KEY,
@@ -37,7 +37,8 @@ const initDB = async () => {
         `);
         console.log('PostgreSQL: Messages table is ready.');
     } catch (err) {
-        console.error('Error creating table:', err.message);
+        console.error('DATABASE INITIALIZATION ERROR:', err.message);
+        console.error('Check your DATABASE_URL and Supabase password.');
     }
 };
 
