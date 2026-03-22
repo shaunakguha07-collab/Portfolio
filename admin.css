@@ -6,14 +6,14 @@
 }
 
 :root {
-    --bg-color: #050505;
-    --grid-color: rgba(57, 255, 20, 0.08);
-    --primary-color: #39ff14; /* Neon green */
-    --secondary-color: #ff0055; /* Neon pink */
-    --text-main: #ffffff;
-    --text-dim: #b8b8b8;
-    --panel-bg: rgba(10, 8, 15, 0.9);
-    --panel-border: rgba(157, 0, 255, 0.3); /* Neon purple */
+    --bg-color: #0d1117;
+    --grid-color: rgba(100, 149, 237, 0.03);
+    --primary-color: #58a6ff; /* Soft GitHub-style Blue */
+    --secondary-color: #f85149; /* Muted Red/Pink */
+    --text-main: #c9d1d9;
+    --text-dim: #8b949e;
+    --panel-bg: rgba(22, 27, 34, 0.95);
+    --panel-border: rgba(48, 54, 61, 0.8);
 
     --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -81,7 +81,6 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
     letter-spacing: 2px;
 }
 
@@ -128,10 +127,8 @@ body {
 .login-box {
     background: var(--panel-bg);
     border: 1px solid var(--panel-border);
-    backdrop-filter: blur(10px);
-    padding: 3rem;
     border-radius: 8px;
-    box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     max-width: 400px;
     width: 100%;
     text-align: center;
@@ -167,7 +164,6 @@ body {
 
 .login-box input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
 }
 
 .error-msg {
@@ -199,7 +195,6 @@ button {
 .btn-deploy:hover {
     background: var(--primary-color);
     color: var(--bg-color);
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
 }
 
 .btn-party.secondary {
@@ -317,7 +312,6 @@ button {
 .hover-delete:hover {
     background: var(--secondary-color);
     color: #fff;
-    box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
 }
 
 .spin-anim {
