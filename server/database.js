@@ -9,7 +9,18 @@ const pool = new Pool({
 });
 
 pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
+    console.error('CRITICAL: Unexpected error on idle client:', err.message);
+    console.error(err);
+});
+
+// Test the connection immediately
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('DATABASE CONNECTION ERROR:', err.message);
+        console.error('Full connection string error details:', err);
+    } else {
+        console.log('DATABASE CONNECTION SUCCESSFUL: Server time is', res.rows[0].now);
+    }
 });
 
 // Initialize tables

@@ -34,8 +34,9 @@ app.post('/api/messages', async (req, res) => {
         );
         res.status(201).json({ success: true, id: result.rows[0].id });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to save message.' });
+        console.error('POST /api/messages ERROR:', err.message);
+        console.error('Full Error:', err);
+        res.status(500).json({ error: 'Failed to save message.', details: err.message });
     }
 });
 
@@ -75,6 +76,7 @@ app.get('/api/messages', verifyAdmin, async (req, res) => {
         const result = await db.query('SELECT * FROM messages ORDER BY timestamp DESC');
         res.json(result.rows);
     } catch (err) {
+        console.error('GET /api/messages ERROR:', err.message);
         res.status(500).json({ error: 'Failed to retrieve messages' });
     }
 });
@@ -86,6 +88,7 @@ app.delete('/api/messages/:id', verifyAdmin, async (req, res) => {
         const result = await db.query('DELETE FROM messages WHERE id = $1', [id]);
         res.json({ success: true, changes: result.rowCount });
     } catch (err) {
+        console.error('DELETE /api/messages ERROR:', err.message);
         res.status(500).json({ error: 'Failed to delete message' });
     }
 });
