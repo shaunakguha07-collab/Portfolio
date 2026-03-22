@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardSection.classList.remove('active-section');
         dashboardSection.classList.add('hide');
         adminPass.value = '';
-        connStatus.innerText = "OFFLINE";
-        connStatus.classList.remove('online');
+        connStatus.innerText = "SYSTEM_ONLINE";
+        connStatus.classList.add('online');
     });
 
     const refreshBtn = document.getElementById('refresh-btn');
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardSection.classList.add('active-section');
         dashboardSection.classList.remove('hide');
 
-        connStatus.innerText = "ONLINE_SECURE";
+        connStatus.innerText = "SECURE_SESSION";
         connStatus.classList.add('online');
 
         await fetchMessages(token);

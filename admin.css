@@ -125,45 +125,78 @@ body {
 
 /* Login Box */
 .login-box {
-    background: var(--panel-bg);
+    background: rgba(10, 10, 10, 0.8);
     border: 1px solid var(--panel-border);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    max-width: 400px;
-    width: 100%;
+    backdrop-filter: blur(20px);
+    padding: 3rem;
+    position: relative;
+    max-width: 450px;
+    width: 90%;
     text-align: center;
+    clip-path: polygon(
+        0 20px, 20px 0, 
+        calc(100% - 20px) 0, 100% 20px, 
+        100% calc(100% - 20px), calc(100% - 20px) 100%, 
+        20px 100%, 0 calc(100% - 20px)
+    );
+}
+
+/* Corner Brackets */
+.login-box::before, .login-box::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--primary-color);
+}
+
+.login-box::before {
+    top: 0; left: 0;
+    border-right: none; border-bottom: none;
+}
+
+.login-box::after {
+    bottom: 0; right: 0;
+    border-left: none; border-top: none;
 }
 
 .login-box h3 {
     font-family: var(--font-heading);
     color: var(--primary-color);
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 
 .login-box p {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
     color: var(--text-dim);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 2px;
 }
 
 .login-box input {
     width: 100%;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--panel-border);
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
     color: var(--primary-color);
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    letter-spacing: 5px;
+    margin-bottom: 2rem;
     outline: none;
     transition: all 0.3s ease;
     text-align: center;
+    border-radius: 4px;
 }
 
 .login-box input:focus {
     border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 .error-msg {
