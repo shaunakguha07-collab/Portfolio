@@ -20,21 +20,23 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_dev_key_123';
 const ADMIN_PASSWORD_HASH = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin123', 10);
 
 // Endpoint to submit a new message
-app.post('/api/messages', (req, res) => {
+app.post('/api/messages', async (req, res) => {
     const { name, email, message } = req.body;
     
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'All fields are required.' });
     }
 
-    const stmt = db.prepare('INSERT INTO messages (name, email, message) VALUES (?, ?, ?)');
-    stmt.run([name, email, message], function (err) {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: 'Failed to save message.' });
-        }
-        res.status(201).json({ success: true, id: this.lastID });
-    });
+    try {
+        const result = await db.query(
+            'INSERT INTO messages (name, email, message) VALUES ($1, $2, $3) RETURNING id',
+            [name, email, message]
+        );
+        res.status(201).json({ success: true, id: result.rows[0].id });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to save message.' });
+    }
 });
 
 // Endpoint for admin login
@@ -68,24 +70,24 @@ function verifyAdmin(req, res, next) {
 }
 
 // Endpoint to get all messages (Protected)
-app.get('/api/messages', verifyAdmin, (req, res) => {
-    db.all('SELECT * FROM messages ORDER BY timestamp DESC', [], (err, rows) => {
-        if (err) {
-            return res.status(500).json({ error: 'Failed to retrieve messages' });
-        }
-        res.json(rows);
-    });
+app.get('/api/messages', verifyAdmin, async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM messages ORDER BY timestamp DESC');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to retrieve messages' });
+    }
 });
 
 // Endpoint to delete a message (Protected)
-app.delete('/api/messages/:id', verifyAdmin, (req, res) => {
+app.delete('/api/messages/:id', verifyAdmin, async (req, res) => {
     const { id } = req.params;
-    db.run('DELETE FROM messages WHERE id = ?', [id], function(err) {
-        if (err) {
-            return res.status(500).json({ error: 'Failed to delete message' });
-        }
-        res.json({ success: true, changes: this.changes });
-    });
+    try {
+        const result = await db.query('DELETE FROM messages WHERE id = $1', [id]);
+        res.json({ success: true, changes: result.rowCount });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete message' });
+    }
 });
 
 app.listen(PORT, () => {

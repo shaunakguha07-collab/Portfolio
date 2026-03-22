@@ -1,27 +1,37 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const { Pool } = require('pg');
 
-// Create or connect to the SQLite database file in the same directory
-const dbPath = path.resolve(__dirname, 'database.sqlite');
-const db = new sqlite3.Database(dbPath, (err) => {
-    if (err) {
-        console.error('Error connecting to database:', err.message);
-    } else {
-        console.log('Connected to the SQLite database.');
-        // Initialize tables
-        db.run(`
-            CREATE TABLE IF NOT EXISTS messages (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                message TEXT NOT NULL,
-                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        `, (err) => {
-            if (err) console.error('Error creating table:', err.message);
-            else console.log('Messages table ready.');
-        });
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        // Most managed Postgres providers require SSL
+        rejectUnauthorized: false
     }
 });
 
-module.exports = db;
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
+});
+
+// Initialize tables
+const initDB = async () => {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS messages (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                message TEXT NOT NULL,
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        console.log('PostgreSQL: Messages table is ready.');
+    } catch (err) {
+        console.error('Error creating table:', err.message);
+    }
+};
+
+initDB();
+
+module.exports = {
+    query: (text, params) => pool.query(text, params)
+};
