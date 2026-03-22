@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADMIN PANEL — Secure Comms</title>
+
+  <!-- Font: Orbitron for headers, Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- Background Grid & effects -->
+  <div class="cyber-grid"></div>
+  <div class="vignette"></div>
+
+  <!-- HUD Navbar -->
+  <nav class="hud-nav">
+    <div class="hud-logo">SYSADMIN<span class="blink">_</span></div>
+    <div class="hud-status" id="conn-status">OFFLINE</div>
+  </nav>
+
+  <main>
+    <!-- LOGIN SECTION -->
+    <section id="login-section" class="section active-section">
+      <div class="login-box glitch-container">
+        <h3>AUTHORIZATION REQUIRED</h3>
+        <p>ENTER OVERRIDE PASSWORD</p>
+        <form id="login-form">
+          <input type="password" id="admin-pass" required placeholder="PASSWORD_">
+          <button type="submit" class="btn-deploy full-width">ACCESS SECURE DATA</button>
+        </form>
+        <p id="login-error" class="error-msg hide"></p>
+      </div>
+    </section>
+
+    <!-- SECURE DASHBOARD -->
+    <section id="dashboard-section" class="section hide">
+      <div class="dashboard-container">
+        <div class="dash-header">
+          <h3>ENCRYPTED MESSAGES</h3>
+          <div style="display: flex; gap: 1rem;">
+            <button id="refresh-btn" class="btn-deploy secondary" style="display: flex; align-items: center; justify-content: center; padding: 10px;" title="Refresh">
+              <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+            </button>
+            <button id="logout-btn" class="btn-party secondary">LOGOUT</button>
+          </div>
+        </div>
+        
+        <div class="table-container">
+          <table class="comms-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>SENDER (NAME)</th>
+                <th>FREQUENCY (EMAIL)</th>
+                <th>TRANSMISSION (MESSAGE)</th>
+                <th>TIMESTAMP</th>
+              </tr>
+            </thead>
+            <tbody id="messages-tbody">
+              <!-- Messages will be injected here -->
+            </tbody>
+          </table>
+          <p id="no-msgs" class="hide table-placeholder">NO NEW TRANSMISSIONS.</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
