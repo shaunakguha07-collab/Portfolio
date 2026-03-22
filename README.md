@@ -1,38 +1,58 @@
-# Portfolio Backend & Admin Panel
+# 🚀 SHAUNAK: Portfolio v2.0 (Cyber-Security Edition)
 
-This is a Node.js + Express backend with an SQLite database designed to securely receive messages from the portfolio site and display them on a protected admin dashboard.
+Welcome to the **v2.0 Neural Interface** for my professional portfolio. This project features a high-performance frontend integrated with a secure Node.js backend and a cloud-hosted PostgreSQL database.
 
-## Running Locally
+---
 
-1. Open your terminal in the `server` directory.
-2. Install dependencies (if not already done): `npm install`
-3. Start the server:
-   ```bash
-   node server.js
-   ```
-4. Open the website: `http://localhost:3000`
-5. Visit the Admin Panel: `http://localhost:3000/admin.html`
-6. The default login password is: `admin123`
+## 🔗 Live Transmissions
+- **Live Portfolio**: [portfolio-backend-4cht.onrender.com](https://portfolio-backend-4cht.onrender.com/)
+- **Admin Command Center**: [/admin.html](https://portfolio-backend-4cht.onrender.com/admin.html)
+- **Source Code**: [GitHub Repository](https://github.com/shaunakguha07-collab/Portfolio)
 
-## Deployment Instructions
+---
 
-To make your website and database live and accessible from any device, follow these steps:
+## 🛠️ Tech Stack & Infrastructure
+- **Frontend**: HTML5, CSS3 (Vanilla + Custom Animations), GSAP for motion design.
+- **Backend**: Node.js, Express, JWT (JSON Web Tokens) for secure session handling.
+- **Database**: PostgreSQL (Managed via [Supabase](https://supabase.com/dashboard/project/ztnhwloqkewthaudphfr)).
+- **Deployment**: [Render.com](https://dashboard.render.com/web/srv-d70413p4tr6s73dvaob0) for automated CI/CD.
 
-### Platform Recommendation: Render.com or Railway.app
+---
 
-1. **Push your code to GitHub.** Ensure the entire project (including the `server` folder) is in a GitHub repository.
-2. **Create an account on Render** (or Railway).
-3. **Deploy Web Service**:
-   - Create a new "Web Service" and connect your GitHub repository.
-   - **Build Command**: `cd server && npm install`
-   - **Start Command**: `cd server && node server.js`
-4. **Environment Variables**:
-   It is highly recommended to override the default password in your host settings.
-   - Add `ADMIN_PASSWORD` and set it to your secure, personal password.
-   - Add `JWT_SECRET` and set it to a random complex string for securing your login tokens.
-5. **Database Persistence**: 
-   Since this uses SQLite (a single file `database.sqlite`), on free platforms like Render, the disk is wiped on every restart. 
-   - **To keep your messages permanently stored**, you MUST add a "Disk" to your Render Web Service. Attach the disk to the `/server` mount path. 
-   - Alternatively, you can swap `sqlite3` for a `pg` (PostgreSQL) database URL provided by Render Database for a robust, enterprise-scale setup.
+## 🛰️ v2.0 System Upgrades
+### 1. Database Evolution (SQLite → PostgreSQL)
+The system has been fully migrated from local SQLite files to a robust, cloud-hosted **PostgreSQL** instance on Supabase. This ensures:
+- **Zero Data Loss**: Messages are stored permanently and don't reset when the server restarts.
+- **High Availability**: Secure connections via the Supabase Connection Pooler (Port 6543).
 
-Once deployed, Render will give you a live URL (e.g., `yourapp.onrender.com`). You can visit `yourapp.onrender.com/admin.html` from your phone or any device to securely read your messages!
+### 2. Premium Admin "Black Theme"
+The Admin Dashboard has been overhauled with a professional, minimal **Pure Black** aesthetic:
+- **HUD Status**: Features a real-time status indicator (`SYSTEM_ONLINE` → `SECURE_SESSION`).
+- **Cyber Design**: Corner-bracket HUD elements and glassmorphic panels for a high-end security feel.
+- **Fully Responsive**: Redesigned for mobile so you can manage your "Mission Log" (messages) on the go.
+
+### 3. Mobile UI Fixes
+Refined the main portfolio's contact section, removing extreme margins and optimizing padding for a pixel-perfect mobile experience.
+
+---
+
+## 🛡️ Security & Environment
+To run this system, the following **Environment Variables** are required in your deployment:
+
+| Variable | Purpose |
+| :--- | :--- |
+| `DATABASE_URL` | Your Supabase connection string (Port 6543). |
+| `ADMIN_PASSWORD` | Secret override for admin access. |
+| `JWT_SECRET` | Encryption key for secure session tokens. |
+
+---
+
+## 💻 Local Development
+1.  **Clone the terminal**: `git clone https://github.com/shaunakguha07-collab/Portfolio.git`
+2.  **Initialize Server**: `cd server && npm install`
+3.  **Boot System**: `npm start`
+4.  **Access Data**: Open `localhost:3000/admin.html`
+
+---
+*Maintained by [Shaunak](https://github.com/shaunakguha07-collab) — 2026*
+
