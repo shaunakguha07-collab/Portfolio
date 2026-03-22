@@ -70,7 +70,7 @@ function verifyAdmin(req, res, next) {
 }
 
 // Endpoint to get all messages (Protected)
-app.get('https://your-backend.onrender.com/api/messages', verifyAdmin, async (req, res) => {
+app.get('/api/messages', verifyAdmin, async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM messages ORDER BY timestamp DESC');
         res.json(result.rows);
