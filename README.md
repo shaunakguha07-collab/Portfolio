@@ -15,7 +15,8 @@ Welcome to the **v2.0 Neural Interface** for my professional portfolio. This pro
 - **Frontend**: HTML5, CSS3 (Vanilla + Custom Animations), GSAP for motion design.
 - **Backend**: Node.js, Express, JWT (JSON Web Tokens) for secure session handling.
 - **Database**: PostgreSQL (Managed via [Supabase](https://supabase.com/dashboard/project/ztnhwloqkewthaudphfr)).
-- **Deployment**: [Render.com](https://dashboard.render.com/web/srv-d70413p4tr6s73dvaob0) for automated CI/CD.
+- **Testing**: Jest & Supertest (API Integration Testing).
+- **CI/CD**: [GitHub Actions](.github/workflows/ci.yml) & [Render.com](https://dashboard.render.com/web/srv-d70413p4tr6s73dvaob0).
 
 ---
 
@@ -47,6 +48,19 @@ To run this system, the following **Environment Variables** are required in your
 
 ---
 
+## 🧪 Testing & CI/CD
+The system includes a robust testing suite to ensure API reliability:
+- **Framework**: [Jest](https://jestjs.io/) & [Supertest](https://github.com/ladjs/supertest).
+- **Coverage**: Tests for message submission and admin authentication.
+- **Mocking**: Database interactions are mocked for isolated, fast execution.
+- **Automation**: GitHub Actions automatically runs the test suite on every `push` or `pull_request` to the `main` branch.
+
+To run tests locally:
+1.  Navigate to the server directory: `cd server`
+2.  Execute the test command: `npm test`
+
+---
+
 ## 💻 Local Development
 1.  **Clone the terminal**: `git clone https://github.com/shaunakguha07-collab/Portfolio.git`
 2.  **Initialize Server**: `cd server && npm install`
@@ -55,4 +69,5 @@ To run this system, the following **Environment Variables** are required in your
 
 ---
 *Maintained by [Shaunak](https://github.com/shaunakguha07-collab) — 2026*
+
 
